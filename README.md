@@ -1,20 +1,25 @@
 # academic-checklist-google-sheets
 The google sheet template allows students to track their academic progress throughout their stay in the institution, supporting different academic period types while the script automates the calculation process for the course status in the "Curriculum Checklist" and eligibility for honors in the "College Dashboard".
 
-Extensions -> Apps Script
+## Features
+
+# Setup
+## Google Sheets
+## Apps Script, Library Lookup, and Installable Triggers
+Extensions → Apps Script
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0040c82a-7018-4b0e-bd38-79c4803ac1de" />
 
-Editor -> Libraries -> Click on the `+` button (tooltip: Add a library). 
+Editor → Libraries → Click on the `+` button (tooltip: Add a library). 
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/e3c5e891-3cb0-4347-bd4c-f2b34e3947aa" />
 
 In the entry field for the Script ID, paste
 ```1EssIuXZXbDp8UjwLK3_VZ5to35blI4RGkbpoaWlDn7igt2YHH-eO9Q4q```
--> Click on `Look up`. Select the latest version available.
+→ Click on `Look up`. Select the latest version available.
 In the entry field for the Identifier, type **ProgressTracker** incase the default is different.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0803a364-535f-4804-9ace-b431e7d209e0" />
 Click `Add`.
 
-Files -> Click on the `+` button (tooltip: Add a file) -> Script.
+Files → Click on the `+` button (tooltip: Add a file) -> Script.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/323684bf-2727-4111-afc2-198bd8cba9cd" />
 In the entry field, type **main** then paste the following:
 ```
@@ -32,6 +37,8 @@ function updateOverviewOnDashboard(){
 ```
 Click on the save icon (tooltip: Save project to Drive)
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/90b3f571-e344-425b-aab6-6d6eeb19d744" />
+
+Apps Script -> Triggers
 
 
 # Version History of ProgressTracker Library
