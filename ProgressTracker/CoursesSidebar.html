@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        margin: 0;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      h3 {
+        color: #000000;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+        margin-top: 0;
+      }
+      h4 {
+        color: #000000;
+        font-size: 14px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        padding-left: 10px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background-color: #fff;
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 8px;
+        border: solid 1px;
+        font-size: 14px;
+        word-wrap: break-word;
+      }
+      #ready-list li {
+        background-color: #e5f3da;
+      }
+      #not-ready-list li {
+        background-color: #fff1e6;
+      }
+      #failed-list li {
+        background-color: #ffecf1;
+      }
+      #enrolled-list li {
+        background-color: #fffcc0;
+      }
+      .two-column-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .two-column-list li {
+        flex-basis: 40%; /* Adjust for spacing */
+      }
+      .prerequisite-list-item {
+        font-size: 12px;
+        color: #555;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <p style="font-size: 12px; color: #777; text-align: left;">Last Updated: <span id="last-updated"></span></p>
+
+    <h3>Ready to Take</h3>
+    <div id="ready-list"></div>
+    
+    <h3>Courses with Missing Prerequisites</h3>
+    <div id="not-ready-list"></div>
+    
+    <h3>Currently Enrolled</h3>
+    <ul id="enrolled-list" class="two-column-list"></ul>
+    
+    <h3>Courses to Retake</h3>
+    <ul id="failed-list" class="two-column-list"></ul>
+    
+    
+    <script>
+      // Call the server-side function to get the stored data
+      google.script.run
+        .withSuccessHandler(showCourses)
+        .withFailureHandler(function(error) {
+          document.body.innerHTML = `<h3>Error</h3><p>An error occurred: ${error.message}</p>`;
+        })
+        .getStoredCourseStatus();
+      
+      function showCourses(statusLists) {
+        const readyList = document.getElementById('ready-list');
+        const notReadyList = document.getElementById('not-ready-list');
+        const failedList = document.getElementById('failed-list');
+        const enrolledList = document.getElementById('enrolled-list');
+        const lastUpdatedSpan = document.getElementById('last-updated');
+        
+        readyList.innerHTML = '';
+        notReadyList.innerHTML = '';
+        failedList.innerHTML = '';
+        enrolledList.innerHTML = '';
+
+        if (statusLists) {
+          lastUpdatedSpan.textContent = statusLists.lastUpdated;
+
+          // Display Ready Courses from the new ordered array
+          if (statusLists.readyPeriods.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = 'No courses are ready at this time.';
+            const ul = document.createElement('ul');
+            ul.appendChild(li);
+            readyList.appendChild(ul);
+          } else {
+            statusLists.readyPeriods.forEach(item => {
+              const periodHeading = document.createElement('h4');
+              periodHeading.textContent = item.period;
+              readyList.appendChild(periodHeading);
+
+              const periodUl = document.createElement('ul');
+              periodUl.classList.add('two-column-list');
+              item.courses.forEach(course => {
+                const li = document.createElement('li');
+                li.textContent = course;
+                periodUl.appendChild(li);
+              });
+              readyList.appendChild(periodUl);
+            });
+          }
+
+          // Display Enrolled Courses
+          if (statusLists.enrolled.length === 0) {
+            enrolledList.innerHTML = '<li>No courses currently enrolled.</li>';
+          } else {
+            statusLists.enrolled.forEach(course => {
+              const li = document.createElement('li');
+              li.textContent = course;
+              enrolledList.appendChild(li);
+            });
+          }
+
+          // Display Failed Courses
+          if (statusLists.failed.length === 0) {
+            failedList.innerHTML = '<li>No courses to retake.</li>';
+          } else {
+            statusLists.failed.forEach(course => {
+              // Use a regex to get the full string within the first parenthesis
+              const courseCodeRegex = /^(.*?)\s+\((.*)\)/;
+              const match = course.match(courseCodeRegex);
+              
+              let courseCode = course;
+              let dependents = '';
+              
+              if (match && match.length > 2) {
+                courseCode = match[1];
+                dependents = match[2];
+              }
+
+              const li = document.createElement('li');
+              li.innerHTML = `${courseCode}<br><span class="prerequisite-list-item">${dependents}</span>`;
+              failedList.appendChild(li);
+            });
+          }
+          
+          // Display Not Ready Courses from the new ordered array
+          if (statusLists.notReadyPeriods.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = 'All prerequisites are met.';
+            const ul = document.createElement('ul');
+            ul.appendChild(li);
+            notReadyList.appendChild(ul);
+          } else {
+            statusLists.notReadyPeriods.forEach(item => {
+              const periodHeading = document.createElement('h4');
+              periodHeading.textContent = item.period;
+              notReadyList.appendChild(periodHeading);
+
+              const periodUl = document.createElement('ul');
+              periodUl.classList.add('two-column-list');
+              item.courses.forEach(course => {
+                // Use a regex to get the full string within the first parenthesis
+                const courseCodeRegex = /^(.*?)\s+\((.*)\)/;
+                const match = course.match(courseCodeRegex);
+                
+                let courseCode = course;
+                let prereqs = '';
+                
+                if (match && match.length > 2) {
+                  courseCode = match[1];
+                  // Remove "Prerequisites Not Met: " and keep the rest of the string
+                  prereqs = match[2].replace('Prerequisites Not Met: ', '');
+                }
+
+                const li = document.createElement('li');
+                li.innerHTML = `${courseCode}<br><span class="prerequisite-list-item">${prereqs}</span>`;
+                periodUl.appendChild(li);
+              });
+              notReadyList.appendChild(periodUl);
+            });
+          }
+        } else {
+          lastUpdatedSpan.textContent = 'N/A';
+          readyList.innerHTML = '<ul><li>Please run "Update Checklist" to generate the summary.</li></ul>';
+          enrolledList.innerHTML = '';
+          failedList.innerHTML = '';
+          notReadyList.innerHTML = '';
+        }
+      }
+    </script>
+  </body>
+</html>
