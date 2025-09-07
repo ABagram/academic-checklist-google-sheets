@@ -6,16 +6,19 @@ The google sheet template allows students to track their academic progress throu
 # Setup
 ## Google Sheets
 ## Apps Script, Library Lookup, and Installable Triggers
-Extensions → Apps Script
+1. Extensions → Apps Script
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0040c82a-7018-4b0e-bd38-79c4803ac1de" />
 
-Editor → Libraries → Click on the `+` button (tooltip: Add a library). 
+2. Editor → Libraries → Click on the `+` button (tooltip: Add a library). 
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/e3c5e891-3cb0-4347-bd4c-f2b34e3947aa" />
 
-In the entry field for the Script ID, paste
-```1EssIuXZXbDp8UjwLK3_VZ5to35blI4RGkbpoaWlDn7igt2YHH-eO9Q4q```
-→ Click on `Look up`. Select the latest version available.
-In the entry field for the Identifier, type **ProgressTracker** incase the default is different.
+3. In the entry field for the Script ID, paste
+```
+1EssIuXZXbDp8UjwLK3_VZ5to35blI4RGkbpoaWlDn7igt2YHH-eO9Q4q
+```
+then click on `Look up`. Select the latest version available.
+
+4. In the entry field for the Identifier, type **ProgressTracker** incase the default is different.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0803a364-535f-4804-9ace-b431e7d209e0" />
 Click `Add`.
 
