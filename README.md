@@ -1,10 +1,20 @@
-# academic-checklist-google-sheets
+# Academic Checklist
 The google sheet template allows students to track their academic progress throughout their stay in the institution, supporting different academic period types while the script automates the calculation process for the course status in the "Curriculum Checklist" and eligibility for honors in the "College Dashboard".
 
 ## Features
+- Automatic
+  - Curriculum Audit
+  - Course Status Summary
+  - Current Week Calculation and Visualization
+  - Weekly Schedule Visualization
 
 # Setup
 ## Google Sheets
+### Guide
+### College Dashboard
+>[!WARNING]
+>The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. Please be advised to **not rename the file**.
+
 ## Apps Script, Library Lookup, and Installable Triggers
 1. Extensions → Apps Script
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0040c82a-7018-4b0e-bd38-79c4803ac1de" />
@@ -51,5 +61,5 @@ Apps Script -> Triggers
 | 4 | Sep 1, 2025, 9:33 PM | MINOR | Instead of "TAKEN", the script now returns "PASSED" to ensure clarity, establishing proper word choice for the negation of the "FAILED" status. |
 | 5 | Sep 1, 2025, 10:45 PM | MAJOR (New) | Includes a new script that retrieves information from columns G and I to populate columns N and O of the OVERVIEW section. |
 | 6 | Sep 2, 2025, 6:06 PM | MAJOR (Patch) | Fixed the incorrect prerequisites not met (not passed) for failed soft prerequisites. |
-| 7 | Sep 6, 2025, 4:41 PM | MAJOR (Patch) | The previous code read data from the spreadsheet one cell at a time inside a loop, which led to an extremely inefficient process (approximately 10 minutes) because each read operation was a separate call to the Google server, which added a lot of overhead. In the updated algorithm, it first reads all the necessary data from both the "Curriculum Checklist" and the "College Dashboard" into memory then performs calculations in memory. Finally, the script writes the completed status column back to the Curriculum Checklist sheet in a single, batch operation, reducing the total runtime from minutes to seconds. |
+| 7 | Sep 6, 2025, 4:41 PM | MAJOR (Patch) | The previous code read data from the spreadsheet one cell at a time inside a loop, which led to an extremely inefficient process (approximately 10 minutes) because each read operation was a separate call to the Google server, which added a lot of overhead. In the updated algorithm, it first reads all the necessary data from both the `Curriculum Checklist` and the `College Dashboard` into memory then performs calculations in memory. Finally, the script writes the completed status column back to the Curriculum Checklist sheet in a single, batch operation, reducing the total runtime from minutes to seconds. |
 | 8 | Sep 7, 2025, 12:32 AM | MAJOR (Patch) | The sidebar containing the course status now correctly follows the order of appearance of academic periods from column C of the Curriculum Checklist through following the order of elements in an array of periods. |
