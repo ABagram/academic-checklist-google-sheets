@@ -34,7 +34,7 @@ Click `Add`.
 
 Files → Click on the `+` button (tooltip: Add a file) -> Script.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/323684bf-2727-4111-afc2-198bd8cba9cd" />
-In the entry field, type **main** then paste the following:
+In the entry field, type **main** then press. In the code editor, paste the following:
 ```
 function updateCurriculumChecklist() {
   ProgressTracker.updateCurriculumChecklist();
