@@ -2,11 +2,20 @@
 The google sheet template allows students to track their academic progress throughout their stay in the institution, supporting different academic period types while the script automates the calculation process for the course status in the "Curriculum Checklist" and eligibility for honors in the "College Dashboard".
 
 ## Features
+- Templates
+  - `College Dashboard`
+  - `Honors Criteria`
+      By default, the 
+  - `Curriculum Checklist`
+  - `{Academic Period #} Dashboard` (Default: Term # Dashboard)
+  - `{Academic Period #} Requirements` (Default: Term # Requirements)
 - Automatic
-  - Curriculum Audit
-  - Course Status Summary
-  - Current Week Calculation and Visualization
-  - Weekly Schedule Visualization
+  - |Feature|Dependencies|
+    |-------|------------|
+    |Curriculum Audit||
+    |Course Status Summary||
+    |Current Week Calculation and Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
+    |Weekly Schedule Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
 
 # Setup
 ## Google Sheets
@@ -30,9 +39,10 @@ then click on `Look up`. Select the latest version available.
 
 4. In the entry field for the Identifier, type **ProgressTracker** incase the default is different.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0803a364-535f-4804-9ace-b431e7d209e0" />
+
 Click `Add`.
 
-Files → Click on the `+` button (tooltip: Add a file) -> Script.
+Files → Click on the `+` button (tooltip: Add a file) → Script.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/323684bf-2727-4111-afc2-198bd8cba9cd" />
 In the entry field, type **main** then press. In the code editor, paste the following:
 ```
@@ -51,7 +61,7 @@ function updateOverviewOnDashboard(){
 Click on the save icon (tooltip: Save project to Drive)
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/90b3f571-e344-425b-aab6-6d6eeb19d744" />
 
-Apps Script -> Triggers
+Apps Script → Triggers
 
 
 # Version History of ProgressTracker Library
