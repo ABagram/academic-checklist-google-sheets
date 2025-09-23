@@ -3,9 +3,11 @@ The google sheet template allows students to track their academic progress throu
 
 ## Features
 - Templates
-  - `College Dashboard`
+  - |`Sheet Name`| Description`|
+    |-------------|--------------|
+  - |`College Dashboard`|All information related to student's current academic standing are included in this sheet. 
   - `Honors Criteria`
-      By default, the 
+      By default, the honors criteria are set according to the requirements stated in the [De La Salle University (DLSU) Student Handbook for Academic Year 2021-2025](https://www.dlsu.edu.ph/wp-content/uploads/pdf/osa/student-handbook.pdf)
   - `Curriculum Checklist`
   - `{Academic Period #} Dashboard` (Default: Term # Dashboard)
   - `{Academic Period #} Requirements` (Default: Term # Requirements)
@@ -19,10 +21,18 @@ The google sheet template allows students to track their academic progress throu
 
 # Setup
 ## Google Sheets
-### Guide
 ### College Dashboard
+| Range | Expected Value | Additional Setup | Sample |
+|--------|----------------|---|---|
+| B9:B |Academic Period|Merged vertically to cover all courses taken during that period. This column will serve as a reference to determine the course status in the Curriculum Checklist.||
+| C9:C| Course Code
+| D9:D| Course Title| 
+
 >[!WARNING]
->The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. Please be advised to **not rename the file**.
+>The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. As of `Version 36`, please be advised to **not rename the file**.
+
+#### Term Taken
+## Honors Criteria
 
 ## Apps Script, Library Lookup, and Installable Triggers
 1. Extensions → Apps Script
