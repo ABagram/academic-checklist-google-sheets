@@ -19,19 +19,27 @@ The google sheet template allows students to track their academic progress throu
     |Current Week Calculation and Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
     |Weekly Schedule Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
 
-# Setup
+# Setup Manual
 ## Google Sheets
 ### College Dashboard
-| Range | Expected Value | Additional Setup | Sample |
-|--------|----------------|---|---|
-| B9:B |Academic Period|Merged vertically to cover all courses taken during that period. This column will serve as a reference to determine the course status in the Curriculum Checklist.||
-| C9:C| Course Code
-| D9:D| Course Title| 
+
+#### Academic Period
+Description: This column will serve as a reference to determine the course status in the `Curriculum Checklist`.
+Range: `B9:B`
+Setup:
+1. Manually enter the academic period name (e.g. Term 1, Semester 1, Spring Term)
+2. Vertically merge the cells whose rows cover all courses taken during that period. 
+
+#### Course Code
+Description: 
+Range: `C9:C`
+Setup
+| C9:C| Course Code| Manual input |
+| D9:D| Course Title| Copy paste or drag down the formulaReferences the cour 
 
 >[!WARNING]
 >The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. As of `Version 36`, please be advised to **not rename the file**.
 
-#### Term Taken
 ## Honors Criteria
 
 ## Apps Script, Library Lookup, and Installable Triggers
