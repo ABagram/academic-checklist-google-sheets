@@ -25,8 +25,11 @@ The google sheet template allows students to track their academic progress throu
 
 #### Academic Period
 Description: This column will serve as a reference to determine the course status in the `Curriculum Checklist`.
+
 Range: `B9:B`
+
 Setup:
+
 1. Manually enter the academic period name (e.g. Term 1, Semester 1, Spring Term)
 2. Vertically merge the cells whose rows cover all courses taken during that period. 
 
