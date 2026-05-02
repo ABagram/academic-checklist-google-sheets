@@ -38,33 +38,35 @@ The google sheet template allows students to track their academic progress throu
 
 # Setup Manual
 ## Google Sheets
+Suggested order of setup:
+`Curriculum Checklist` --> `College Dashboard` --> `Honors Criteria`
 ### College Dashboard
-
-Format:
-|Row #|B|C|D|E|F|G|H|
-|-----|-|-|-|-|-|-|-|
-|8||||||||
-|9|Academic Period|Course Code|Course Title|Course Section|Professor|Units|Grade|
+Suggested order of setup:
+`Course Code` --> `Academic Period` --> `Grade (if available)`
 
 #### Period [MANUAL]
-- Description: Values in `column B` will serve as a reference to determine the **Status** in the `Curriculum Checklist` sheet.
+- Description: Academic period taken
+- Purpose: Values in `column B` will serve as a reference to determine the **Status** in the `Curriculum Checklist` sheet.
 - Range: `B9:B`
 - Setup:
   1. Manually enter the academic period name (e.g. Term 1, Semester 1, Spring Term)
   2. Vertically merge the cells whose rows cover all courses taken during that period. 
 
-
-Description: Values in `column C` will be used as the search key when updating the curriculum checklist. Please ensure that the course code matches its corresponding course code in `'Curriculum Checklist'!B:B`.
-
-- Range(s):
-  - `E
-
+#### Course Code [MANUAL]
+- Description: Course code taken during academic period (`Column B`).
+- Purpose: Values in `column C` will be used as the search key when updating the curriculum checklist.
+> [!IMPORTANT]
+> Please ensure that the course code matches its corresponding course code in `'Curriculum Checklist'!B:B`. Update the **Course Code** in both `Curriculum Checklist` and `Academic Dashboard` for equivalent course codes.
+- Range: `C9:C`
+- Setup:
+  1. 
 Setup:
 1. Manually enter the course code taken during the academic period (as stated in `column B`).
 
 #### Course Title [AUTOMATIC]
+- Description: 
 - Range: `D9:D`
-Copy paste or drag down the formulaReferences the cour 
+- Drag down the formulaReferences the cour 
 
 >[!WARNING]
 >The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. As of `Version 36`, please be advised to **not rename the file**.
