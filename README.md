@@ -46,14 +46,14 @@ Format:
 |8||||||||
 |9|Academic Period|Course Code|Course Title|Course Section|Professor|Units|Grade|
 
-#### Period
+#### Period [MANUAL]
 - Description: Values in `column B` will serve as a reference to determine the **Status** in the `Curriculum Checklist` sheet.
 - Range: `B9:B`
 - Setup:
   1. Manually enter the academic period name (e.g. Term 1, Semester 1, Spring Term)
   2. Vertically merge the cells whose rows cover all courses taken during that period. 
 
-#### Course Code, Course Title, Course Section, Professor, Units, Grade
+
 Description: Values in `column C` will be used as the search key when updating the curriculum checklist. Please ensure that the course code matches its corresponding course code in `'Curriculum Checklist'!B:B`.
 
 - Range(s):
@@ -62,13 +62,20 @@ Description: Values in `column C` will be used as the search key when updating t
 Setup:
 1. Manually enter the course code taken during the academic period (as stated in `column B`).
 
-#### Course Title
+#### Course Title [AUTOMATIC]
 - Range: `D9:D`
 Copy paste or drag down the formulaReferences the cour 
 
 >[!WARNING]
 >The `College Dashboard` sheet will be read by the functions that update the `Curriculum Checklist`. As of `Version 36`, please be advised to **not rename the file**.
 
+#### Course Section [MANUAL]
+
+#### Professor [MANUAL]
+
+#### Units [AUTOMATIC]
+
+#### Grades [MANUAL]
 ### Honors Criteria
 
 ### Curriculum Checklist
