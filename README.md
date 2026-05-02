@@ -1,23 +1,40 @@
 # Academic Checklist
-The google sheet template allows students to track their academic progress throughout their stay in the institution, supporting different academic period types while the script automates the calculation process for the course status in the "Curriculum Checklist" and eligibility for honors in the "College Dashboard".
+The google sheet template allows students to track their academic progress throughout their stay in an academic institution, supporting different academic period types while the script automates the calculation process for the course status in the "Curriculum Checklist" and eligibility for honors in the "College Dashboard".
 
-## Features
-- Templates
-  - |`Sheet Name`| Description`|
-    |-------------|--------------|
-  - |`College Dashboard`|All information related to student's current academic standing are included in this sheet. 
-  - `Honors Criteria`
-      By default, the honors criteria are set according to the requirements stated in the [De La Salle University (DLSU) Student Handbook for Academic Year 2021-2025](https://www.dlsu.edu.ph/wp-content/uploads/pdf/osa/student-handbook.pdf)
-  - `Curriculum Checklist`
-  - `{Academic Period #} Dashboard` (Default: Term # Dashboard)
-  - `{Academic Period #} Requirements` (Default: Term # Requirements)
-- Automatic
-  - |Feature|Dependencies|
-    |-------|------------|
-    |Curriculum Audit||
-    |Course Status Summary||
-    |Current Week Calculation and Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
-    |Weekly Schedule Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
+## Templates
+| Sheet Name    | Description |
+| ------------- |-------------- |
+|`College Dashboard`|All information related to student's current academic standing are included in this sheet.|
+|`Honors Criteria`|By default, the honors criteria are set according to the requirements stated in the [De La Salle University (DLSU) Student Handbook for Academic Year 2021-2025](https://www.dlsu.edu.ph/wp-content/uploads/pdf/osa/student-handbook.pdf). This may be updated as needed.|
+|`Curriculum Checklist`||
+|`{Academic Period #} Dashboard`| (Default: Term # Dashboard. Note: Change the `#` into the actual semester/term number followed. Since this is controlled by a script, make sure to follow the format properly.)|
+|`{Academic Period #} Requirements`| (Default: Term # Requirements. Note: Change the `#` into the actual semester/term number followed. Since this is controlled by a script, make sure to follow the format properly.)|
+
+## Automated Features
+### Curriculum Audit
+- Utilizes manually-entered data in `College Dashboard` to determine course status.
+  |Sample Status|Interpretation|
+  |-------------|--------------|
+  |Prerequisites Not Met: THSMFE1 (Not Passed)|If the course has hard prerequisites that have not been passed, the Status will indicate "Not Passed" along with the corresponding course code of the prerequisites.|
+  |Prerequisites Not Met: LBYMF3A (Not Taken)|If the course has soft prerequisites that have not been taken, the Status will indicate "Not Taken" along with the corresponding course code of the prerequisites.|
+  |READY|If the course is ready to be enlisted (i.e. all prerequisites have been met), the Status will indicate "READY". Note that due to lack of information on course offerings, the script assumes that the course is offered every term.|
+  |ENROLLED|If the latest instance of the course code is found with no corresponding grade, the script assumes that it is currently enrolled.|
+  |PASSED (TERM 9)|If the course has been passed (grade of > 0.0 or "PASSED"), the Status will indicate "PASSED (PERIOD when it was passed based on College Dashboard)".|
+  |FAILED (TERM 9)|If the grade is 0.0 or "FAILED", the Status will indicated "FAILED (PERIOD WHEN COURSE WAS LAST TAKEN based on College Dashboard)".|
+- Example: <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3743536c-9f53-48dd-895e-ad37bf3346a9" />
+- Dependencies: `College Dashboard`
+
+### Course Status Summary
+- Displays a side sheet that lists all courses that are `Ready to Take`, `Courses with Missing Prerequisites`, `Currently Enrolled`, and `Courses to Retake`, streamlining the academic plan for the succeeding terms.
+- Example: <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bf1af141-050a-4ae3-a37a-7712c81ba568" />
+- Dependencies: `College Dashboard` and `Curriculum Checklist`.
+
+|Feature|Dependencies|Example|
+|-------|------------|-------|
+|Curriculum Audit|||
+|Course Status Summary |||
+|Current Week Calculation and Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
+|Weekly Schedule Visualization|Sheets that contain "Weekly Schedule" in their name (e.g.  `Term 10 Weekly Schedule`)|
 
 # Setup Manual
 ## Google Sheets
@@ -61,32 +78,48 @@ Setup:
 ```
 then click on `Look up`. Select the latest version available.
 
-4. In the entry field for the Identifier, type **ProgressTracker** incase the default is different.
+4. In the entry field for the Identifier, type **ProgressTracker**.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/0803a364-535f-4804-9ace-b431e7d209e0" />
 
 Click `Add`.
 
-Files → Click on the `+` button (tooltip: Add a file) → Script.
+5. Files → Click on the `+` button (Tooltip: Add a file) → Script.
 <img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/323684bf-2727-4111-afc2-198bd8cba9cd" />
-In the entry field, type **main** then press. In the code editor, paste the following:
+
+6. In the entry field, type **Main** then press. The file name and extension should then be **`Main.gs`**. In the code editor, paste the following:
 ```
-function updateCurriculumChecklist() {
-  ProgressTracker.updateCurriculumChecklist();
+/**
+ * @OnlyCurrentDoc
+ */
+
+// Public functions for the custom menu.
+function onOpen() {
+  ProgressTracker.onOpen();
 }
 
-function updateToDoList(e) {
+function onEdit(e) {
   ProgressTracker.onEdit(e);
 }
 
-function updateOverviewOnDashboard(){
-  ProgressTracker.updateOverviewOnDashboard();
+// Public wrapper to call the library from the menu.
+function updateAndShowCoursesSidebar() {
+  ProgressTracker.updateAndShowCoursesSidebar();
+}
+
+// Public wrapper for the sidebar's client-side call.
+function getStoredCourseStatus() {
+  return ProgressTracker.getStoredCourseStatus();
+  
 }
 ```
-Click on the save icon (tooltip: Save project to Drive)
-<img width="1920" height="827" alt="image" src="https://github.com/user-attachments/assets/90b3f571-e344-425b-aab6-6d6eeb19d744" />
+7. Click on the save icon (Tooltip: Save project to Drive)
 
-Apps Script → Triggers
+8. Refresh the browser tab of the spreadsheet `Academic Checklist`. The menu bar should now have a new tab called `Utilities`.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9ebd735d-43e3-4ebc-bd52-850934dc746c" />
 
+> [!IMPORTANT]
+> When selecting a sub menu item under `Utilities`, a new window tab will open. Check `Select All` then press `Continue`.
+> <img width="1920" height="921" alt="image" src="https://github.com/user-attachments/assets/7ed2f8ca-1dba-4dfe-bc94-13df25a9d841" />
 
 # Version History of ProgressTracker Library
 | Version | Deployment | Type of Change | Description |
